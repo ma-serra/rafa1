@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amo Você!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Font Awesome -->
+    <script type="importmap">
+        {
+            "imports": {
+                "script": "./script.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Amo Você!</h1>
+
+        <div class="input-section">
+            
+            <!-- URL/Upload Bar -->
+            <div class="url-upload-bar">
+                <div class="action-icons left-aligned">
+                    <!-- Upload file icon, now first -->
+                    <label for="imageUpload" class="icon-button metallic-icon" id="uploadIcon" title="Carregar Imagem">
+                        <i class="fas fa-upload"></i>
+                    </label>
+                </div>
+                <input type="text" id="pasteImageUrl" placeholder="Cole a URL da imagem aqui, ou arraste.">
+                <div class="action-icons right-aligned">
+                    <!-- Download Output Icon (Replaces specific save icons) -->
+                    <button class="icon-button metallic-icon" id="downloadOutputIcon" title="Baixar Imagem Gerada">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hidden Input and Preview Image -->
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <img id="previewImage" src="#" alt="Visualização da imagem" style="display: none;">
+
+            <textarea id="promptInput" placeholder="Exemplo: Mude o fundo para um céu azul."></textarea>
+
+            <!-- Action Bar (Microphone, Generate, Plate Obfuscation, Save Individual, Save Gallery, Repass Dictation) -->
+            <div class="action-bar">
+                <!-- Left Aligned Icons -->
+                <div class="action-icons left-aligned">
+                    <button class="icon-button metallic-icon" id="microphoneIcon" title="Falar Prompt">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <!-- Hide License Plate (Car Icon) -->
+                    <button class="icon-button metallic-icon" id="obfuscatePlateIcon" title="Ocultar Placa de Veículos">
+                        <i class="fas fa-car-side"></i>
+                    </button>
+                </div>
+
+                <!-- Generate Button (Standardized) -->
+                <button class="icon-button metallic-icon" id="generateButton" title="Gerar Imagem">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                </button>
+
+
+                <!-- Right Aligned Icons -->
+                <div class="action-icons right-aligned">
+                    <button class="icon-button metallic-icon" id="saveIndividualIcon" title="Salvar Imagem Individual">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <button class="icon-button metallic-icon" id="saveGalleryIcon" title="Salvar Galeria Organizada">
+                        <i class="fas fa-images"></i>
+                    </button>
+                    <!-- Repass Dictation Icon (Microphone + Speaker/Announcement) -->
+                    <button class="icon-button metallic-icon" id="repassDictationIcon" title="Ditar Detalhes do Veículo para Repasse">
+                        <i class="fas fa-bullhorn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <h2>Imagem Gerada</h2>
+            <p id="loadingMessage" style="display: none;">Gerando imagem, por favor, aguarde...</p>
+            <img id="generatedImage" src="#" alt="Imagem gerada" style="display: none;">
+            
+            <!-- Vehicle Repass Details Output Area -->
+            <div id="repassDetailsOutput" class="repass-output" style="display: none;">
+                <h3>Detalhes do Veículo para Anúncio</h3>
+                <pre id="repassText"></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div id="appFooter">
+        <!-- Using a 'route' or 'key' icon as an abstract symbol for Tranca Rua, styled as thin line -->
+        <i class="tranca-rua-symbol fas fa-route" title="Símbolo Tranca Rua (Caminhos Abertos)"></i>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

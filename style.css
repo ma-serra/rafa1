@@ -1,0 +1,359 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #0d0d0d; /* Matte Black */
+    color: #a0a0a0; /* Gray text */
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for global drag-over */
+    border: 2px solid transparent; /* Default transparent border */
+}
+
+body.drag-over-global {
+    background-color: #1a1a1a; /* Slightly different background on drag-over */
+    border-color: #555555; /* Darker border for global drag-over */
+    box-shadow: 0 0 15px rgba(85, 85, 85, 0.5); /* Glowing effect */
+}
+
+.container {
+    background-color: #151515; /* Matte dark gray/black for container */
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Darker shadow */
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    border: 1px solid #222222; /* Thin matte border */
+}
+
+h1 {
+    color: #a0a0a0; /* Gray text */
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(160, 160, 160, 0.3);
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* New Bar Layout Styles */
+.url-upload-bar, .action-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px; /* Slightly reduced padding */
+    border-radius: 6px;
+    background-color: #222222; /* Dark background for bars */
+    border: 1px solid #333333;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* URL Input field inside the bar */
+.url-upload-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #111111; /* Dark input background */
+    color: #c0c0c0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.3s ease;
+    margin: 0; /* Ensure it fits correctly between icons */
+}
+
+.url-upload-bar input[type="text"]:focus {
+    border-color: #777777;
+    outline: none;
+}
+
+
+/* Styling for Icons/Buttons */
+.action-icons {
+    display: flex;
+    gap: 10px;
+    margin: 0 5px; /* Adjust margin for icons around the input */
+}
+
+.action-icons.left-aligned {
+    margin-right: 10px; /* Space after left icons */
+}
+
+.action-icons.right-aligned {
+    margin-left: 10px; /* Space before right icons */
+}
+
+.icon-button {
+    height: 44px;
+    min-width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    padding: 0;
+}
+
+/* Metallic/Hollow Styling */
+.metallic-icon {
+    /* Hollow (Vazado), Matte Black/Gray Look with Relief, Transparency */
+    background: transparent; /* Transparent background */
+    color: #888888; /* Inner icon color */
+    border: 1px solid #444444; /* Thin border for 'hollow' look */
+    box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset, /* Subtle relief highlight */
+        0 1px 2px rgba(0, 0, 0, 0.5),             /* Outer shadow */
+        inset 0 -1px 1px rgba(0, 0, 0, 0.3);      /* Relief shadow */
+    position: relative;
+    overflow: hidden;
+    opacity: 0.85; 
+}
+
+.metallic-icon:hover {
+    background: rgba(50, 50, 50, 0.1); /* Slight hover glow */
+    color: #aaaaaa;
+    border-color: #777777;
+    box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+        0 2px 4px rgba(0, 0, 0, 0.6),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+    opacity: 1;
+}
+
+.metallic-icon:active {
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.1), /* Press down effect */
+        inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+        0 1px 2px rgba(0, 0, 0, 0.4);
+    transform: translateY(1px);
+    opacity: 0.95;
+}
+
+/* Active/State styles for icons */
+.metallic-icon.active {
+    background: rgba(100, 100, 100, 0.2); /* Dark gray active state */
+    color: #f0f0f0;
+    border-color: #f0f0f0;
+    box-shadow: 0 0 5px rgba(240, 240, 240, 0.5);
+    transform: none;
+}
+
+.metallic-icon.recording {
+    /* Visual feedback for recording */
+    background: rgba(200, 0, 0, 0.2); /* Subtle Red pulse background */
+    color: #ffaaaa;
+    border-color: #ff4d4d;
+    box-shadow: 0 0 10px #ff4d4d, inset 0 0 5px rgba(255, 77, 77, 0.5);
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 10px #ff4d4d, 0 0 0 0 rgba(255, 77, 77, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 15px #ff4d4d, 0 0 0 5px rgba(255, 77, 77, 0);
+    }
+}
+
+
+.image-upload {
+    display: none;
+}
+
+.upload-button {
+    display: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.or-separator {
+    display: none;
+    margin: 5px 0;
+    color: #9a9a9a;
+    font-size: 0.9em;
+}
+
+#pasteImageUrl {
+    /* Existing ID now targeting input within .url-upload-bar, old specific width/padding removed */
+}
+
+#pasteImageUrl::placeholder {
+    color: #a0a0a0;
+}
+
+#pasteImageUrl:focus {
+    border-color: #7b68ee;
+    box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.25);
+    outline: none;
+}
+
+.drag-paste-instruction {
+    font-size: 0.9em;
+    color: #c0c0c0;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+#previewImage {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #444444; /* Darker border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Darker shadow */
+    margin-top: 5px; /* Reduced spacing */
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border: 1px solid #444444; /* Darker border */
+    border-radius: 8px;
+    font-size: 1em;
+    resize: vertical;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Darker inset shadow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a; /* Darker background */
+    color: #c0c0c0; /* Light gray text */
+}
+
+textarea:focus {
+    border-color: #777777; /* Gray focus border */
+    box-shadow: 0 0 0 3px rgba(119, 119, 119, 0.25); /* Gray focus shadow */
+    outline: none;
+}
+
+button:not(.icon-button) {
+    background-color: #4a4a4a; /* Dark gray for primary action */
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Dark shadow */
+}
+
+button:hover:not(.icon-button) {
+    background-color: #555555;
+    transform: translateY(-2px);
+}
+
+button:disabled:not(.icon-button) {
+    background-color: #333333; /* Darker disabled background */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Action Bar Specific Layout for Generate Button */
+.action-bar {
+    justify-content: space-between;
+}
+
+button#generateButton {
+    /* Now standardized as .icon-button.metallic-icon, we just need to size it appropriately */
+    font-size: 1.5em; /* Slightly larger icon for central action */
+    min-width: 50px; 
+    height: 50px;
+    /* Reset layout properties from old style */
+    flex-grow: 0;
+    margin: 0;
+}
+
+.output-section {
+    margin-top: 20px;
+    border-top: 1px solid #333333; /* Darker border */
+    padding-top: 30px;
+}
+
+h2 {
+    color: #a0a0a0; /* Gray text */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 500;
+}
+
+#loadingMessage {
+    color: #888888; /* Gray text */
+    font-style: italic;
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+#generatedImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #444444; /* Darker border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    margin-top: 20px;
+}
+
+/* New Repass Output Styling */
+.repass-output {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    text-align: left;
+}
+.repass-output h3 {
+    font-size: 1.2em;
+    color: #c0c0c0;
+    margin-bottom: 10px;
+}
+.repass-output pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: monospace;
+    font-size: 1em;
+    color: #888888;
+    background-color: #111111;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #222222;
+}
+
+/* Footer Styling (Rodapé) */
+#appFooter {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #333333;
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.tranca-rua-symbol {
+    font-size: 1.5em; /* Reasonable size for an icon */
+    color: #444444; /* Thin line style - subtle gray */
+    opacity: 0.7;
+    transition: color 0.3s ease;
+}
+
+.tranca-rua-symbol:hover {
+    color: #666666;
+}
